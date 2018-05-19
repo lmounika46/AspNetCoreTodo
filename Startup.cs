@@ -38,7 +38,11 @@ namespace AspNetCoreTodo
 
             services.AddMvc();
 
-            services.AddSingleton<ITodoItemService, FakeTodoItemServices>();
+            services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlite(
+            Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSingleton<ITodoItemService, TodoItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
